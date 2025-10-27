@@ -8,9 +8,9 @@
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#f59e0b" />
   <!-- Favicon & Mobile Icons -->
-  <link rel="icon" href="images/робот.jpg" type="image/jpeg" />
-  <link rel="apple-touch-icon" sizes="180x180" href="images/робот.jpg" />
-  <link rel="manifest" href="data:application/manifest+json,{"name":"Моя галерея","short_name":"Галерея","icons":[{"src":"images/робот.jpg","sizes":"180x180","type":"image/jpeg"}],"theme_color":"#f59e0b","background_color":"#ffffff","display":"standalone"}" />
+  <link rel="icon" href="images/robot.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/robot.jpg" />
+  <link rel="manifest" href="data:application/manifest+json,{\"name\":\"Моя галерея\",\"short_name\":\"Галерея\",\"icons\":[{\"src\":\"images/robot.jpg\",\"sizes\":\"180x180\",\"type\":\"image/jpeg\"}],\"theme_color\":\"#f59e0b\",\"background_color\":\"#ffffff\",\"display\":\"standalone\"}" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
   <header class="sticky top-0 z-50 bg-white/75 dark:bg-neutral-950/75 backdrop-blur border-b border-neutral-200 dark:border-neutral-800">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="images/робот.jpg" alt="Логотип" class="w-9 h-9 rounded-2xl object-cover shadow-soft"/>
+        <img src="images/robot.jpg" alt="Логотип" class="w-9 h-9 rounded-2xl object-cover shadow-soft"/>
         <p class="font-extrabold text-lg">Моя галерея</p>
       </div>
       <nav class="hidden md:flex items-center gap-3" aria-label="Основное меню">
@@ -60,7 +60,7 @@
   <section class="relative">
     <div class="max-w-6xl mx-auto px-4 py-12 md:py-16 grid md:grid-cols-2 gap-8 items-center">
       <div>
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Привет! Я <span class="text-amber-600">[Имя]</span> и это моя коллекция рисунков ✨</h1>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Привет! Я <span class="text-amber-600">[Катя]</span> и это моя коллекция рисунков ✨</h1>
         <p class="mt-4 text-neutral-600 dark:text-neutral-300">Здесь я делюсь своими скетчами, комиксами и иллюстрациями. Пожалуйста, не копируйте и не размещайте мои работы без моего разрешения.</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="#gallery" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 text-white shadow-soft hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-amber-400">
@@ -73,13 +73,13 @@
         </div>
       </div>
       <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-soft bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center">
-        <img src="images/Иллюстрация_без_названия 1.jpg" alt="Обложка: кои" class="w-full h-full object-cover"/>
+        <img src="images/illustration1.jpg" alt="Обложка: кои" class="w-full h-full object-cover"/>
       </div>
     </div>
   </section>
 
   <!-- Фильтры -->
-  <section class="max-w-6xl mx_auto px-4" id="gallery" aria-label="Галерея">
+  <section class="max-w-6xl mx-auto px-4" id="gallery" aria-label="Галерея">
     <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
       <h2 class="text-2xl md:text-3xl font-extrabold">Галерея</h2>
       <div class="flex flex-wrap gap-2" role="toolbar" aria-label="Фильтры">
@@ -103,43 +103,43 @@
         </button>
       </li>
       <li class="group relative" data-category="sketch">
-        <button class="w-full h_full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Глаз и персонаж" src="images/глаз.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+        <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
+          <img loading="lazy" alt="Глаз и персонаж" src="images/eye.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
       <li class="group relative" data-category="watercolor">
         <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Грибы" src="images/Грибы.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
-        </button>
-      </li>
-      <li class="group relative" data-category="digital">
-        <button class="w-full h-full block rounded-2xl overflow_hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Кои" src="images/Иллюстрация_без_названия 1.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+          <img loading="lazy" alt="Грибы" src="images/mushrooms.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
       <li class="group relative" data-category="digital">
         <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Милый робот" src="images/Иллюстрация_без_названия.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+          <img loading="lazy" alt="Кои" src="images/illustration1.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
-      <li class="group relative" data-category="sketch">
-        <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline_none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Морская сцена" src="images/морская.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+      <li class="group relative" data-category="digital">
+        <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
+          <img loading="lazy" alt="Милый робот" src="images/illustration2.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
       <li class="group relative" data-category="sketch">
         <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Манекен с фигуркой" src="images/робот.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+          <img loading="lazy" alt="Морская сцена" src="images/sealife.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+        </button>
+      </li>
+      <li class="group relative" data-category="sketch">
+        <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
+          <img loading="lazy" alt="Манекен с фигуркой" src="images/robot.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
       <li class="group relative" data-category="digital">
         <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Узоры" src="images/узоры.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+          <img loading="lazy" alt="Узоры" src="images/canvas.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
       <li class="group relative" data-category="watercolor">
         <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
-          <img loading="lazy" alt="Цветы" src="images/Цветы.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
+          <img loading="lazy" alt="Цветы" src="images/flowers.jpg" class="w-full h-40 md:h-44 object-cover skeleton" />
         </button>
       </li>
     </ul>
@@ -153,21 +153,21 @@
     <p class="mt-2 text-neutral-600 dark:text-neutral-300">Небольшие творческие серии и задания. Каждый проект — это набор работ, объединённых одной темой.</p>
     <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <article class="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-soft">
-        <img src="images/Грибы.jpg" alt="Проект: Грибы" class="w-full h-40 object-cover"/>
+        <img src="images/mushrooms.jpg" alt="Проект: Грибы" class="w-full h-40 object-cover"/>
         <div class="p-4">
           <h3 class="font-semibold">Лесные находки</h3>
           <p class="text-sm text-neutral-600 dark:text-neutral-400">Серия пастельных и акварельных зарисовок грибов и растений.</p>
         </div>
       </article>
       <article class="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-soft">
-        <img src="images/Иллюстрация_без_названия 1.jpg" alt="Проект: Кои" class="w-full h-40 object-cover"/>
+        <img src="images/illustration1.jpg" alt="Проект: Кои" class="w-full h-40 object-cover"/>
         <div class="p-4">
           <h3 class="font-semibold">Вода и свет</h3>
           <p class="text-sm text-neutral-600 dark:text-neutral-400">Эксперименты с отражениями и движением воды в digital‑скетчах.</p>
         </div>
       </article>
       <article class="rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden shadow-soft">
-        <img src="images/морская.jpg" alt="Проект: Морской персонаж" class="w-full h-40 object-cover"/>
+        <img src="images/sealife.jpg" alt="Проект: Морской персонаж" class="w-full h-40 object-cover"/>
         <div class="p-4">
           <h3 class="font-semibold">Персонажи и вселенные</h3>
           <p class="text-sm text-neutral-600 dark:text-neutral-400">Оригинальные персонажи, эмоции и элементы лора.</p>
@@ -217,7 +217,7 @@
 
   <!-- Лайтбокс (dialog) -->
   <dialog id="lightbox" class="rounded-2xl p-0 w-[min(92vw,1000px)] bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
-    <div class="flex items-center justify_between px-3 py-2 border-b border-neutral-200 dark:border-neutral-800">
+    <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-200 dark:border-neutral-800">
       <p class="font-semibold">Просмотр</p>
       <div class="flex items-center gap-2">
         <a id="downloadLink" class="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900" download>Скачать</a>
