@@ -343,7 +343,6 @@
     document.querySelectorAll('img').forEach(img => img.addEventListener('load', () => img.classList.remove('skeleton')));
   // === i18n (с внешними JSON + fallback) ===
     const langBtn = document.getElementById('langBtn');
-    const themeBtn = document.getElementById('themeBtn');
     const savedLang = localStorage.getItem('lang');
     const browserLang = (navigator.language || 'en').toLowerCase().startsWith('ru') ? 'ru' : 'en';
     const startLang = savedLang || browserLang;
