@@ -6,7 +6,7 @@
   "navAbout": "About",
   "navProjects": "Projects",
   "navRules": "Usage & Safety",
-  "heroTitle": "Hi! I'm <span class=\"text-amber-600\">[Name]</span> and this is my art collection ✨",
+  "heroTitle": "Hi! I'm <span class=\"text-amber-600\">{name}</span> and this is my art collection ✨",
   "heroP": "Here I share my sketches, comics and illustrations. Please don't copy or repost my works without permission.",
   "viewBtnTxt": "View gallery",
   "uploadBtnTxt": "Add drawings (local)",
