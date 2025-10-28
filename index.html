@@ -417,6 +417,12 @@
 
     async function applyLang(lang){
       const dict = await fetchDict(lang);
+      // Подставляем имя автора, даже если JSON содержит плейсхейдеры
+if (dict && typeof dict.heroTitle === 'string') {
+  const variants = ['{name}','[Имя]','[Name]'];
+  variants.forEach(v => { dict.heroTitle = dict.heroTitle.replace(v, artistName); });
+}
+
       document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
       const ids = ['siteName','navGallery','navAbout','navProjects','navRules','heroTitle','heroP','viewBtnTxt','uploadBtnTxt','galleryHdr','filterAll','filterDigital','filterSketch','filterWatercolor','tipP','projectsHdr','projectsDesk','proj1Title','proj1P','proj2Title','proj2P','proj3Title','proj3P','aboutHdr','aboutP','aboutLi1','aboutLi2','aboutLi3','contactHdr','contactNote','contactBtnTxt','rulesHdr','rulesLi1','rulesLi2','rulesLi3','rulesLi4','rulesLi5','wmLabel','lightboxHdr','downloadTxt','closeTxt','rightsTxt','siteNameFooter'];
       ids.forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(id==='heroTitle') el.innerHTML=dict[id]; else el.textContent=dict[id]; });
