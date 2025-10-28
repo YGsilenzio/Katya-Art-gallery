@@ -415,67 +415,69 @@
       if (twd && dict.seoDesc) twd.setAttribute('content', dict.seoDesc);
     }
 
-    async function applyLang(lang){
-      
-  // Имя автора для каждой локали
-  const artistNames = { ru: 'Катя', en: 'Katya' };
+    // Имя автора для каждой локали
+const artistNames = { ru: 'Катя', en: 'Katya' };
 
-  async function applyLang(lang){
-    const dict = await fetchDict(lang);
-    document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
+async function applyLang(lang){
+  const dict = await fetchDict(lang);
+  document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
 
-    // Подставляем имя автора
-    const artistName = artistNames[lang] || artistNames.ru;
-    if (dict && typeof dict.heroTitle === 'string') {
-      const variants = ['{name}','[Имя]','[Name]'];
-      variants.forEach(v=>{ dict.heroTitle = dict.heroTitle.replace(v, artistName); });
-    }
-
-    const ids = ['siteName','navGallery','navAbout','navProjects','navRules','heroTitle','heroP','viewBtnTxt','uploadBtnTxt','galleryHdr','filterAll','filterDigital','filterSketch','filterWatercolor','tipP','projectsHdr','projectsDesk','proj1Title','proj1P','proj2Title','proj2P','proj3Title','proj3P','aboutHdr','aboutP','aboutLi1','aboutLi2','aboutLi3','contactHdr','contactNote','contactBtnTxt','rulesHdr','rulesLi1','rulesLi2','rulesLi3','rulesLi4','rulesLi5','wmLabel','lightboxHdr','downloadTxt','closeTxt','rightsTxt','siteNameFooter'];
-    ids.forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(id==='heroTitle') el.innerHTML=dict[id]; else el.textContent=dict[id]; });
-
-    document.querySelectorAll('[data-i18n-alt]').forEach(img=>{ const key=img.getAttribute('data-i18n-alt'); if(dict[key]) img.alt = dict[key]; });
-    if (langBtn) { langBtn.textContent = lang === 'ru' ? 'EN' : 'RU'; langBtn.setAttribute('aria-label', dict.ariaLang); langBtn.setAttribute('title', dict.titleLang); }
-    if (themeBtn) { themeBtn.setAttribute('aria-label', dict.ariaTheme); themeBtn.setAttribute('title', dict.titleTheme); }
-    localStorage.setItem('lang', lang);
-
-    // СЕО мета
-    applySeo(dict);
-
-    // На опубликованном сайте скрыть кнопку локальной загрузки и сократить подсказку
-    const isHosted = location.protocol !== 'file:';
-    const uploadBtnEl = document.getElementById('uploadBtn');
-    if (isHosted && uploadBtnEl) {
-      uploadBtnEl.classList.add('hidden');
-      const tip = document.getElementById('tipP');
-      if (tip) tip.textContent = lang==='ru' ? 'Подсказка: нажмите на картинку, чтобы открыть её крупно.' : 'Tip: click an image to open it large.';
-    }
+  // Подставляем имя автора
+  const artistName = artistNames[lang] || artistNames.ru;
+  if (dict && typeof dict.heroTitle === 'string') {
+    const variants = ['{name}','[Имя]','[Name]'];
+    variants.forEach(v => { dict.heroTitle = dict.heroTitle.replace(v, artistName); });
   }
-</script>
 
+  const ids = [
+    'siteName','navGallery','navAbout','navProjects','navRules','heroTitle','heroP',
+    'viewBtnTxt','uploadBtnTxt','galleryHdr','filterAll','filterDigital','filterSketch',
+    'filterWatercolor','tipP','projectsHdr','projectsDesk','proj1Title','proj1P','proj2Title',
+    'proj2P','proj3Title','proj3P','aboutHdr','aboutP','aboutLi1','aboutLi2','aboutLi3',
+    'contactHdr','contactNote','contactBtnTxt','rulesHdr','rulesLi1','rulesLi2','rulesLi3',
+    'rulesLi4','rulesLi5','wmLabel','lightboxHdr','downloadTxt','closeTxt','rightsTxt','siteNameFooter'
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (id === 'heroTitle') el.innerHTML = dict[id];
+    else el.textContent = dict[id];
+  });
+
+  document.querySelectorAll('[data-i18n-alt]').forEach(img => {
+    const key = img.getAttribute('data-i18n-alt');
+    if (dict[key]) img.alt = dict[key];
+  });
+
+  if (langBtn) {
+    langBtn.textContent = lang === 'ru' ? 'EN' : 'RU';
+    langBtn.setAttribute('aria-label', dict.ariaLang);
+    langBtn.setAttribute('title', dict.titleLang);
+  }
+
+  if (themeBtn) {
+    themeBtn.setAttribute('aria-label', dict.ariaTheme);
+    themeBtn.setAttribute('title', dict.titleTheme);
+  }
+
+  localStorage.setItem('lang', lang);
+
+  // СЕО мета
+  applySeo(dict);
+
+  // На опубликованном сайте скрыть кнопку локальной загрузки и сократить подсказку
+  const isHosted = location.protocol !== 'file:';
+  const uploadBtnEl = document.getElementById('uploadBtn');
+  if (isHosted && uploadBtnEl) {
+    uploadBtnEl.classList.add('hidden');
+    const tip = document.getElementById('tipP');
+    if (tip)
+      tip.textContent = lang === 'ru'
+        ? 'Подсказка: нажмите на картинку, чтобы открыть её крупно.'
+        : 'Tip: click an image to open it large.';
+  }
 }
-
-      document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
-      const ids = ['siteName','navGallery','navAbout','navProjects','navRules','heroTitle','heroP','viewBtnTxt','uploadBtnTxt','galleryHdr','filterAll','filterDigital','filterSketch','filterWatercolor','tipP','projectsHdr','projectsDesk','proj1Title','proj1P','proj2Title','proj2P','proj3Title','proj3P','aboutHdr','aboutP','aboutLi1','aboutLi2','aboutLi3','contactHdr','contactNote','contactBtnTxt','rulesHdr','rulesLi1','rulesLi2','rulesLi3','rulesLi4','rulesLi5','wmLabel','lightboxHdr','downloadTxt','closeTxt','rightsTxt','siteNameFooter'];
-      ids.forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(id==='heroTitle') el.innerHTML=dict[id]; else el.textContent=dict[id]; });
-      document.querySelectorAll('[data-i18n-alt]').forEach(img=>{ const key=img.getAttribute('data-i18n-alt'); if(dict[key]) img.alt = dict[key]; });
-      if (langBtn) { langBtn.textContent = lang === 'ru' ? 'EN' : 'RU'; langBtn.setAttribute('aria-label', dict.ariaLang); langBtn.setAttribute('title', dict.titleLang); }
-      if (themeBtn) { themeBtn.setAttribute('aria-label', dict.ariaTheme); themeBtn.setAttribute('title', dict.titleTheme); }
-      localStorage.setItem('lang', lang);
-
-      // СЕО мета
-      applySeo(dict);
-
-      // На опубликованном сайте скрыть кнопку локальной загрузки и сократить подсказку
-      const isHosted = location.protocol !== 'file:';
-      const uploadBtnEl = document.getElementById('uploadBtn');
-      if (isHosted && uploadBtnEl) {
-        uploadBtnEl.classList.add('hidden');
-        const tip = document.getElementById('tipP');
-        if (tip) tip.textContent = lang==='ru' ? 'Подсказка: нажмите на картинку, чтобы открыть её крупно.' : 'Tip: click an image to open it large.';
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', ()=>{ applyLang(startLang); if (langBtn) { langBtn.addEventListener('click', ()=>{ const next = (localStorage.getItem('lang')||startLang) === 'ru' ? 'en' : 'ru'; applyLang(next); }); } });
   </script>
 </body>
