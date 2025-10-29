@@ -1,0 +1,5 @@
+[
+  { "file": "IMG_0009.jpg", "category": "digital",   "alt_ru": "Портрет",        "alt_en": "Portrait" },
+  { "file": "mushrooms.jpg","category": "watercolor","alt_ru": "Грибы",          "alt_en": "Mushrooms" },
+  { "file": "illustration1.jpg","category": "digital","alt_ru": "Кои",          "alt_en": "Koi" }
+]
