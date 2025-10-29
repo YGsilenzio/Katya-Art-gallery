@@ -478,7 +478,112 @@ async function applyLang(lang){
         : 'Tip: click an image to open it large.';
   }
 }
-    document.addEventListener('DOMContentLoaded', ()=>{ applyLang(startLang); if (langBtn) { langBtn.addEventListener('click', ()=>{ const next = (localStorage.getItem('lang')||startLang) === 'ru' ? 'en' : 'ru'; applyLang(next); }); } });
+ // === Автогалерея: gallery.json → fallback на содержимое images/ ===
+function getCurrentLang(){
+  return (localStorage.getItem('lang') || ((navigator.language||'en').toLowerCase().startsWith('ru')?'ru':'en'));
+}
+
+function humanizeFilename(name){
+  const base = name.replace(/\.[^.]+$/, '').replace(/[._-]+/g,' ').trim();
+  return base.charAt(0).toUpperCase()+base.slice(1);
+}
+
+function buildItemHTML(file, category, alt){
+  const cat = category || 'digital';
+  const src = `images/${file}`;
+  const altSafe = alt || humanizeFilename(file);
+  return `<li class="group relative" data-category="${cat}">
+    <button class="w-full h-full block rounded-2xl overflow-hidden shadow-soft focus:outline-none focus:ring-2 focus:ring-amber-400" data-lightbox>
+      <img loading="lazy" alt="${altSafe}" src="${src}" class="w-full h-40 md:h-44 object-cover skeleton" />
+    </button>
+  </li>`;
+}
+
+function rebindLightbox(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const downloadLink = document.getElementById('downloadLink');
+  document.querySelectorAll('[data-lightbox]').forEach(btn => {
+    btn.onclick = () => {
+      const img = btn.querySelector('img');
+      const url = img.currentSrc || img.src;
+      lbImg.src = url; downloadLink.href = url; lb.showModal();
+    };
+  });
+}
+
+async function fetchGalleryJson(){
+  try{
+    const r = await fetch('gallery.json', {cache:'no-store'});
+    if(!r.ok) throw 0; return await r.json();
+  }catch{ return null; }
+}
+
+async function fetchImagesFromGithub(){
+  try{
+    const username = location.hostname.split('.')[0]; // ygsilenzio
+    const parts = location.pathname.split('/').filter(Boolean); // ["Katya-Art-gallery", ...]
+    const repo = parts[0] || (username + '.github.io');
+    const tryBranches = ['main','master'];
+    for (const br of tryBranches){
+      const url = `https://api.github.com/repos/${username}/${repo}/contents/images?ref=${br}`;
+      const r = await fetch(url, {headers:{'Accept':'application/vnd.github+json'}});
+      if (!r.ok) continue;
+      const arr = await r.json();
+      return arr
+        .filter(x=>x && x.type==='file' && /\.(jpe?g|png|webp|gif)$/i.test(x.name))
+        .map(x=>x.name);
+    }
+  }catch(e){ /* ignore */ }
+  return [];
+}
+
+async function loadGallery(){
+  const grid = document.getElementById('grid');
+  if (!grid) return;
+  grid.innerHTML = ''; // очищаем статический список
+
+  const lang = getCurrentLang();
+  const cfg = await fetchGalleryJson();
+
+  if (Array.isArray(cfg) && cfg.length){
+    const html = cfg.map(it=>{
+      const alt = lang==='ru'
+        ? (it.alt_ru||it.alt||humanizeFilename(it.file))
+        : (it.alt_en||it.alt||humanizeFilename(it.file));
+      return buildItemHTML(it.file, it.category, alt);
+    }).join('\n');
+    grid.innerHTML = html;
+  } else {
+    // Пытаемся получить список файлов из GitHub API
+    const files = await fetchImagesFromGithub();
+    if (files.length){
+      grid.innerHTML = files
+        .sort().reverse() // новые сверху (по имени)
+        .map(f => buildItemHTML(f, 'digital', humanizeFilename(f)))
+        .join('\n');
+    } else {
+      // Если и это не удалось — оставляем (или верни) статические <li> в HTML
+    }
+  }
+
+  // Снять скелетоны после загрузки
+  document.querySelectorAll('#grid img').forEach(img => img.addEventListener('load', () => img.classList.remove('skeleton')));
+
+  rebindLightbox();
+}
+    document.addEventListener('DOMContentLoaded', ()=>{
+  applyLang(startLang);
+  loadGallery();
+  if (langBtn) {
+    langBtn.addEventListener('click', ()=>{
+      const next = (localStorage.getItem('lang')||startLang) === 'ru' ? 'en' : 'ru';
+      applyLang(next);
+      loadGallery(); // перерисуем alt под выбранный язык
+    });
+  }
+});
+ });
   </script>
 </body>
 </html>
