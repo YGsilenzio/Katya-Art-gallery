@@ -538,40 +538,75 @@ async function fetchImagesFromGithub(){
   return [];
 }
 
-async function loadGallery(){
+// === Автоматическая подгрузка изображений в галерею ===
+async function loadGallery() {
   const grid = document.getElementById('grid');
   if (!grid) return;
-  grid.innerHTML = ''; // очищаем статический список
 
-  const lang = getCurrentLang();
-  const cfg = await fetchGalleryJson();
+  // Очищаем старое содержимое
+  grid.innerHTML = '';
 
-  if (Array.isArray(cfg) && cfg.length){
-    const html = cfg.map(it=>{
-      const alt = lang==='ru'
-        ? (it.alt_ru||it.alt||humanizeFilename(it.file))
-        : (it.alt_en||it.alt||humanizeFilename(it.file));
-      return buildItemHTML(it.file, it.category, alt);
-    }).join('\n');
+  const lang = (localStorage.getItem('lang') ||
+    ((navigator.language || 'en').toLowerCase().startsWith('ru') ? 'ru' : 'en'));
+
+  // Попробуем загрузить gallery.json
+  const cfg = await (async () => {
+    try {
+      const r = await fetch('gallery.json', { cache: 'no-store' });
+      if (!r.ok) throw 0;
+      return await r.json();
+    } catch {
+      return null;
+    }
+  })();
+
+  // Если есть gallery.json — строим галерею по нему
+  if (Array.isArray(cfg) && cfg.length) {
+    const html = cfg
+      .map(it => {
+        const alt =
+          lang === 'ru'
+            ? it.alt_ru || it.alt || humanizeFilename(it.file)
+            : it.alt_en || it.alt || humanizeFilename(it.file);
+        return buildItemHTML(it.file, it.category, alt);
+      })
+      .join('\n');
     grid.innerHTML = html;
   } else {
-    // Пытаемся получить список файлов из GitHub API
+    // Если нет gallery.json — пробуем получить список файлов из GitHub
     const files = await fetchImagesFromGithub();
-    if (files.length){
-      grid.innerHTML = files.sort().reverse().map(f=>{
-  const fileName = typeof f === 'string' ? f : (f.name || '');
-  return buildItemHTML(fileName, 'digital', humanizeFilename(fileName));
-}).join('\n');
+    if (files.length) {
+      const html = files
+        .sort()
+        .reverse()
+        .map(f => {
+          // безопасно обрабатываем строку/объект
+          const fileName =
+            typeof f === 'string'
+              ? f
+              : f && typeof f.name === 'string'
+              ? f.name
+              : '';
+          return buildItemHTML(fileName, 'digital', humanizeFilename(fileName));
+        })
+        .join('\n');
+      grid.innerHTML = html;
     } else {
-      // Если и это не удалось — оставляем (или верни) статические <li> в HTML
+      console.warn('Не удалось загрузить изображения из GitHub или gallery.json');
     }
   }
 
-  // Снять скелетоны после загрузки
-  document.querySelectorAll('#grid img').forEach(img => img.addEventListener('load', () => img.classList.remove('skeleton')));
+  // Убираем эффект "скелетона" после загрузки
+  document
+    .querySelectorAll('#grid img')
+    .forEach(img =>
+      img.addEventListener('load', () => img.classList.remove('skeleton'))
+    );
 
+  // Перепривязываем события для открытия картинок
   rebindLightbox();
 }
+
     document.addEventListener('DOMContentLoaded', ()=>{
   applyLang(startLang);
   loadGallery();
