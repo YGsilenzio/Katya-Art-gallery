@@ -558,10 +558,10 @@ async function loadGallery(){
     // Пытаемся получить список файлов из GitHub API
     const files = await fetchImagesFromGithub();
     if (files.length){
-      grid.innerHTML = files
-        .sort().reverse() // новые сверху (по имени)
-        .map(f => buildItemHTML(f, 'digital', humanizeFilename(f)))
-        .join('\n');
+      grid.innerHTML = files.sort().reverse().map(f=>{
+  const fileName = typeof f === 'string' ? f : (f.name || '');
+  return buildItemHTML(fileName, 'digital', humanizeFilename(fileName));
+}).join('\n');
     } else {
       // Если и это не удалось — оставляем (или верни) статические <li> в HTML
     }
